@@ -15,7 +15,7 @@ const Signup = () => {
   useEffect(() => {
     setDark("false")
     const getCollleges = async () => {
-        const res=await fetch('/api/admin/getClg')
+        const res=await fetch('https://dbatu-student-gathering.onrender.com/api/admin/getClg')
        setcolleges(await res.json())
     }
     getCollleges()

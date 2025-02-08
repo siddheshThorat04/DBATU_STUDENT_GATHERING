@@ -29,7 +29,7 @@ const Admin = () => {
     const addCollege=async (e)=>{
         try {
             e.preventDefault()
-            const res= await fetch("/api/admin/addCollege",{
+            const res= await fetch("https://dbatu-student-gathering.onrender.com/api/admin/addCollege",{
                 method:"POST",
                 headers: {
                     'Content-Type': 'application/json'
