@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useChat } from './context/ChatContext';
 // import beepSound from "./assets/ping-82822.mp3"
 
-const URL = "https://dbatu-student-gathering.vercel.app/";
+const URL = "https://dbatu-student-gathering.onrender.com";
 // const URL = "http://localhost:8080";
 
 export const socket = io(URL, {
