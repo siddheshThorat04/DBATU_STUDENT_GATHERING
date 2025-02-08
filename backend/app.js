@@ -15,11 +15,12 @@ const app = express()
 
 const server = createServer(app)
 
+const frontend_url = process.env.MODE === "development" ? "http://localhost:3000" : process.env.FRONTEND_URL
 
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-    origin: [process.env.FRONTEND_URL],
+    origin:   [frontend_url],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
@@ -36,6 +37,7 @@ const port = process.env.PORT
 server.listen(port, () => {
     connectDb()
     console.log(`Server run on port http://localhost:${port}`)
+    console.log(frontend_url)
 })
 
 socketSetup(server)
