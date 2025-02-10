@@ -8,31 +8,39 @@ import { MdDelete } from "react-icons/md";
 import {useAuthContext} from '../context/authContext'
 import { useDarkThemeContext } from '../context/DarkTheme'
 const News = () => {
+  const mode=import.meta.env.VITE_MODE
+  const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
+
   const {authUser}=useAuthContext()
   const [file, setFile] = useState();
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(""); 
   const [isForAll, setIsForAll] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [news, setnews] = useState([]);
   const {isDark, setDark}=useDarkThemeContext()
   useEffect(() => {
     const getNews = async () => {
-      const res = await fetch('/api/user/getNews', {
+      
+      const res = await fetch(`${API}/api/user/getNews`, {
         method: "GET",
+        credentials: 'include', // Include cookies in the request
         headers: {
           'Content-Type': 'application/json'
-        }
-      })
+        },
+    });
       const data = await res.json()
       setnews(data?.news)
+      if(data.error){
+        console.log(data.message)
+      }
       console.log(data?.news);
     }
 
     getNews()
   }, [])
   const deleteNews = async (id) => {
-    const res = await fetch(`/api/admin/deleteNews/${id}`, {
+    const res = await fetch(`${API}/api/admin/deleteNews/${id}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -53,7 +61,7 @@ const News = () => {
     formData.append('description', description);
     formData.append('isForAll', isForAll);
     setIsAdding(false)
-    await axios.post('/api/user/addNews', formData, {
+    await axios.post(`${API}/api/user/addNews`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -70,10 +78,10 @@ const News = () => {
       <button className= {isDark==="false"?"HomeButton HomeButtonDark":"HomeButton"}  ><GoHome onClick={() => window.location.href = "/"   } className={isDark==="false"?"HomeButton text-balck":"HomeButton text-white"}  /></button>
       <h1 className={isDark==="false"?'Post_latest_happening Post_latest_happeningDark text-3xl ':"Post_latest_happening text-3xl"} >Latest News</h1>
   
-      {news.length==0 && <h1 className={isDark==="false"?'Post_latest_happening2  text-3xl text-black ':"Post_latest_happening2 text-3xl"} >Ohh, Such a Empty 😞 <span className={isDark==="false"?'post_something_na text-black ':'post_something_na text-white'}  >What's happening in Your College ? Share it.</span></h1>}
+      {news?.length==0 && <h1 className={isDark==="false"?'Post_latest_happening2  text-3xl text-black ':"Post_latest_happening2 text-3xl"} >Ohh, Such a Empty 😞 <span className={isDark==="false"?'post_something_na text-black ':'post_something_na text-white'}  >What's happening in Your College ? Share it.</span></h1>}
       <div className="newsDiv2">
         
-      {news.map((item) => {
+      {news?.map((item) => {
         return (
           <div className={isDark==="false"?'newsDiv newsDivDark w-[97vw]  ':"newsDiv w-[97vw]"}  key={item._id}      >
             <h1 className={isDark==="false"?'newsTitle newsTitleDark ':"newsTitle text-2xl text-white "}  >{item.title}<span className='clgName'  >{item.isForAll ?  "University": item.college.name}</span></h1>

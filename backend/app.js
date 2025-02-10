@@ -15,14 +15,12 @@ const app = express()
 
 const server = createServer(app)
 
-const frontend_url = process.env.MODE === "development" ? "http://localhost:3000" : process.env.FRONTEND_URL
+const frontend_url = process.env.MODE === "DEVELOPMENT" ? "http://localhost:5173" : process.env.FRONTEND_URL
 
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-    origin:   [frontend_url],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin:  [process.env.FRONTEND_URL],
     credentials: true
 }))
 

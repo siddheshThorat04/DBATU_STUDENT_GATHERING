@@ -9,12 +9,14 @@ import { useAuthContext } from '../context/authContext'
 import eventsLogo from '../assets/events.png'
 import { useDarkThemeContext } from '../context/DarkTheme';
 const Home2 = () => {
+  const mode=import.meta.env.VITE_MODE
+  const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
     const {authUser,setauthUser}=useAuthContext()
      const {isDark, setDark}=useDarkThemeContext()
     const [isSideBarOn, setIsSideBarOn] = useState(false);
      const logout =async(e)=>{
         e.preventDefault()
-        const res= await fetch("/api/auth/logout",{
+        const res= await fetch(`${API}/api/auth/logout`,{
             method:"post",
             headers:{
                 "Content-Type":"application/json"

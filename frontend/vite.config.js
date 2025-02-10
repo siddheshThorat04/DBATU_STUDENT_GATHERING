@@ -11,9 +11,9 @@
 // 	server: {
 // 		port: 3000,
 // 		proxy: {
-// 			"/api": {
-// 				target: API,
-// 				changeOrigin: true,
+	// 			"/api": {
+		// 				target: API,
+		// 				changeOrigin: true,
 // 				secure: true,
 // 			},
 // 		},

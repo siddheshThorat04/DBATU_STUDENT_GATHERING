@@ -8,16 +8,20 @@ import Slider from '../components/Slider';
 // import eventsLogo from '../assets/events.png'
 
 const Signup = () => {
-  
+  const mode=import.meta.env.VITE_MODE
+  const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
   const [colleges, setcolleges] = useState([]);
   const {isDark, setDark}=useDarkThemeContext()
   const{authUser, setauthUser}=useAuthContext()
   useEffect(() => {
+    console.log(API)
     setDark("false")
     const getCollleges = async () => {
-        const res=await fetch('https://dbatu-student-gathering.onrender.com/api/admin/getClg')
+      
+        const res=await fetch(`${API}/api/admin/getClg`)
        setcolleges(await res.json())
     }
+
     getCollleges()
   }, []);
 
@@ -26,7 +30,7 @@ const Signup = () => {
     const username = e.target[0].value
     const password = e.target[1].value
     const college = e.target[2].value
-    const res = await fetch('/api/auth/signup', {
+    const res = await fetch(`${API}/api/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -46,6 +50,14 @@ const Signup = () => {
         alert(data.message)
         setauthUser(data.user)
         console.log(authUser);
+
+        const data = {
+          user: {
+              username: "priyanka1234",
+              token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          }
+      };
+      localStorage.setItem("mbAuth", JSON.stringify(data.user));
       localStorage.setItem("mbAuth",JSON.stringify(data.user))
       localStorage.setItem("mbTheme","false")
       window.location.href="/"

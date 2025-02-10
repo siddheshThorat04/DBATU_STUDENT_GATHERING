@@ -2,6 +2,9 @@ import React, { useEffect } from 'react'
 import { useAuthContext } from '../context/authContext.jsx'
 import { useDarkThemeContext } from '../context/DarkTheme.jsx'
 const Login = () => {
+const mode=import.meta.env.VITE_MODE
+  const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
+
   const {authUser,setauthUser}=useAuthContext()
   const {isDark, setDark}=useDarkThemeContext()
 
@@ -14,7 +17,7 @@ const Login = () => {
 
       try {
         e.preventDefault()
-        const res=await fetch("/api/auth/login",{
+        const res=await fetch(`${API}/api/auth/login`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"

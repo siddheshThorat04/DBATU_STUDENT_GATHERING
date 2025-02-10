@@ -5,12 +5,16 @@ import { FaInstagram } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
 import { useDarkThemeContext } from '../context/DarkTheme';
 const Leadboard = () => {
+
+    const mode=import.meta.env.VITE_MODE    
+    const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
+
     const [Leadboard, setLeadboard] = useState([]);
     const {isDark}=useDarkThemeContext()
     useEffect(() => {
         const getLeadboard = async () => {
             try {
-                const res = await fetch('/api/admin/getLeadboard', {
+                const res = await fetch(`${API}/api/admin/getLeadboard`, {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json'

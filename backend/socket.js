@@ -7,7 +7,7 @@ const {
     getUnpairedUsers,
     removeUnpairedUser
 } = require("./users");
-const frontend_url = process.env.MODE === "development" ? "http://localhost:3000" : process.env.FRONTEND_URL
+const frontend_url = process.env.MODE === "development" ? "http://localhost:5173" : process.env.FRONTEND_URL
 module.exports = function (server) {
     const io = require("socket.io")(server, {
         cors: {

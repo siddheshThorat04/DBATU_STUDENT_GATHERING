@@ -8,6 +8,9 @@ import { useDarkThemeContext } from '../context/DarkTheme';
 import { MdDelete } from "react-icons/md";
 import { useAuthContext } from '../context/authContext';
 const Events = () => {
+
+  const mode=import.meta.env.VITE_MODE
+  const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
   const [file, setFile] = useState();
   const [Name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -18,7 +21,7 @@ const Events = () => {
   const {authUser}=useAuthContext()
   useEffect(() => {
     const getEvents = async () => {
-      const res = await fetch('/api/user/getEvents', {
+      const res = await fetch(`${API}/api/user/getEvents`, {
         method: "GET",
         headers: {
           'Content-Type': 'application/json'
@@ -31,7 +34,7 @@ const Events = () => {
     getEvents()
   }, [])
   const deleteEvent = async (id) => {
-    const res = await fetch(`/api/admin/deleteEvent/${id}`, {
+    const res = await fetch(`${API}/api/admin/deleteEvent/${id}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

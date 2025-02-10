@@ -5,9 +5,6 @@ const protectRoute = async (req, res, next) => {
     try {
 
         const  mateBatu  = req.cookies.mateBatu
-        if (!mateBatu){
-            return res.status(401).json({ error: "please login first" })
-        }
 
         const decoded = jwt.verify(mateBatu, process.env.JWT_SECRET)
 

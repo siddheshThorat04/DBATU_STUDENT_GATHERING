@@ -37,7 +37,7 @@ const getNews = async (req, res) => {
             res.status(200).json({ message: "Latest Insights Fetched", news: news })
         }
     } catch (error) {
-        res.status(400).json({ error: error.message })
+        res.status(400).json({ error: error.message,message:"ERROR IN SERVER" })
     }
 }
 

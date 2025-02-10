@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 
 const Admin = () => {
+    const mode=import.meta.env.VITE_MODE
+    const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
     const [isAddingCollege, setIsAddingCollege] = useState(false);
     const [collegeName, setCollegeName] = useState('');
     const [isAddingMeet, setIsAddingMeet] = useState(false);
-
     const [meetLink, setMeetLink] = useState('');
     const [meetName, setMeetName] = useState('');
-
+    
     const addMeet=async (e)=>{
+
         try {
             e.preventDefault()
-            const res= await fetch("/api/admin/addMeet",{
+            const res= await fetch(`${API}/api/admin/addMeet`,{
                 method:"POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,7 +31,7 @@ const Admin = () => {
     const addCollege=async (e)=>{
         try {
             e.preventDefault()
-            const res= await fetch("https://dbatu-student-gathering.onrender.com/api/admin/addCollege",{
+            const res= await fetch(`${API}/api/admin/addCollege`,{
                 method:"POST",
                 headers: {
                     'Content-Type': 'application/json'

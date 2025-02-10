@@ -8,13 +8,15 @@ import { IoIosLogOut } from 'react-icons/io'
 import { GoHome } from "react-icons/go";
 import { useDarkThemeContext } from '../context/DarkTheme';
 const ProfilePage = () => {
+  const mode=import.meta.env.VITE_MODE
+  const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
   const userId = useParams().id
   const [user, setUser] = useState()
   const { authUser, setauthUser } = useAuthContext()
   const {isDark}= useDarkThemeContext()
   useEffect(() => {
     const getProfile = async () => {
-      const res = await fetch("/api/user/getProfile/" + userId, {
+      const res = await fetch(`${API}/api/user/getProfile/` + userId, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -28,7 +30,7 @@ const ProfilePage = () => {
   }, [])
   const logout = async (e) => {
     e.preventDefault()
-    const res = await fetch("/api/auth/logout", {
+    const res = await fetch(`${API}/api/auth/logout`, {
       method: "post",
       headers: {
         "Content-Type": "application/json"
@@ -45,7 +47,7 @@ const ProfilePage = () => {
     e.preventDefault()
     const username = e.target[0].value
     const instagramLink = e.target[1].value
-    const res = await fetch("/api/user/updateProfile", {
+    const res = await fetch(`${API}/api/user/updateProfile`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

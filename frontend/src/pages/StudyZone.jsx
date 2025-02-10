@@ -10,7 +10,8 @@ import { FaInstagram } from "react-icons/fa";
 const StudyZone = () => {
     const { authUser } = useAuthContext()
     const { isDark } = useDarkThemeContext()
-    
+    const mode=import.meta.env.MODE
+    const API= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
     const [meetZone, setMeetZone] = useState([]);
     useEffect(() => {
         const getNews = async () => {

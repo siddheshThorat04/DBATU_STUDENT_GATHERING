@@ -4,8 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useChat } from './context/ChatContext';
 // import beepSound from "./assets/ping-82822.mp3"
 
-const URL = "https://dbatu-student-gathering.onrender.com";
-// const URL = "http://localhost:8080";
+
+  const mode=import.meta.env.VITE_MODE
+  const URL= mode==="DEVELOPMENT"?import.meta.env.VITE_API_DEV:import.meta.env.VITE_API
 
 export const socket = io(URL, {
     autoConnect: false,
