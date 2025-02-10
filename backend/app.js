@@ -20,7 +20,7 @@ const frontend_url = process.env.MODE === "DEVELOPMENT" ? "http://localhost:5173
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-    origin:  [process.env.FRONTEND_URL],
+    origin:  [frontend_url],
     credentials: true
 }))
 
